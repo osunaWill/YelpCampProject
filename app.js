@@ -30,10 +30,10 @@ const login = require('./routes/login')
 const { serialize } = require('v8');
 const helmet = require('helmet');
 
-// const dbURL = 'mongodb://127.0.0.1:27017/yelp-camp';
+const dbURL = process.env.DB_URL || 'mongodb://127.0.0.1:27017/yelp-camp';
 
 // mongodb://127.0.0.1:27017/yelp-camp
-mongoose.connect('mongodb://127.0.0.1:27017/yelp-camp', {
+mongoose.connect(dbURL, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 });
@@ -51,11 +51,11 @@ app.engine('ejs' , ejsMate);
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
-
+const secret = process.env.SECRET || "gus2525";
 
 const store = new MongoDBStore({
-    url:'mongodb://127.0.0.1:27017/yelp-camp',
-    secret: 'gus2525',
+    url:dbURL,
+    secret,
     touchAfter: 24*60*60
 });
 
@@ -65,7 +65,7 @@ store.on('error', function(e){
 
 const sessionConfig = {
     store,
-    secret: 'gus2525',
+    secret,
     resave: false,
     saveUninitialized: true,
     cookie:{
