@@ -51,7 +51,9 @@ module.exports.indexCampground = async (req, res)=>{
 
 module.exports.updateCampground = async (req, res) => {
    const { id } = req.params;
-   const campground = await Campground.findById(id);
+   console.log(req.body);
+
+   const campground = await Campground.findByIdAndUpdate(id, {...req.body.campground});
 
    // Eliminar imágenes de Cloudinary
    if (req.body.deleteImages) {
