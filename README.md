@@ -1,3 +1,0 @@
-# YELPCAMP
- First project
-# yelpcamp
