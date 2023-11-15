@@ -132,10 +132,10 @@ app.all('*', (req,res,next)=>{
     next(new ExpressError('Page not found', 404));
 })
 
-app.use((err,req,res,next) =>{
-    const {statusCode = 500, message='Something is wrong'} = err;
-    res.status(statusCode).render('C:/Users/osuna/YELPCAMP/views/campgrounds/error.ejs',{err});
-})
+app.use((err, req, res, next) => {
+    const { statusCode = 500, message = 'Something is wrong' } = err;
+    res.status(statusCode).render('campgrounds/error', { err });
+});
 
 
 app.listen(3000, () => {
